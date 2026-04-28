@@ -6,7 +6,7 @@ Site de portfólio pessoal desenvolvido para apresentar minha trajetória como d
 
 ## 🔗 Acesse o site
 
-[Em breve - link do GitHub Pages ou Netlify]
+https://danielmsouza-dev.github.io/Portifolio-fiinal/
 
 ## ✨ Funcionalidades
 
