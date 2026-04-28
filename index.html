@@ -7,7 +7,7 @@
   <meta name="author" content="Daniel Souza">
   <meta property="og:title" content="Daniel Souza | Portfólio">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/imagens/perfil.jpeg">
+  <meta property="og:image" content="https://i.ibb.co/zH8zQyCt/perfil.jpg">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%239CA3AF'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='70' font-weight='bold' font-family='Arial, sans-serif' fill='white'%3EDS%3C/text%3E%3C/svg%3E">
   <title>Daniel Souza | Portfólio</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -152,7 +152,7 @@
   </nav>
 </header>
 <main>
-  <!-- Hero (sempre visível, sem animação) -->
+  <!-- Hero -->
   <section id="hero">
     <div class="container" style="text-align:center; padding:6rem 0 4rem">
       <h1><span data-key="hero_greeting">Olá, eu sou</span> <span class="text-accent text-glow">Daniel Souza</span></h1>
@@ -168,7 +168,7 @@
     </div>
   </section>
   
-  <!-- Sobre (com fade-up) -->
+  <!-- Sobre -->
   <section id="sobre" class="fade-up bg-secondary">
     <div class="container">
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center">
@@ -178,17 +178,19 @@
           <p data-key="about_p3">Estou em busca da minha primeira oportunidade profissional na área de TI, como jovem aprendiz ou estagiário, trazendo vontade de aprender, dedicação e foco em resultados.</p>
         </div>
         <div class="fade-up" style="border-radius:1.5rem; overflow:hidden; border:2px solid hsl(var(--accent)/0.5)">
-          <img src="imagens/perfil.jpeg" alt="Daniel Souza" style="width:100%; object-fit:cover; aspect-ratio:1/1; filter:grayscale(0.4)" loading="lazy" onerror="this.src='https://placehold.co/400x400?text=Daniel+Souza'">
+          <img src="https://i.ibb.co/zH8zQyCt/perfil.jpg" alt="Daniel Souza" style="width:100%; object-fit:cover; aspect-ratio:1/1; filter:grayscale(0.4)" loading="lazy">
         </div>
       </div>
     </div>
   </section>
   
-  <!-- Carreira / Experiência (com fade-up) -->
+  <!-- Carreira / Experiência -->
   <section id="carreira" class="fade-up">
     <div class="container">
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center">
-        <div class="fade-up"><img src="imagens/experiencia.jpg" alt="Experiência Vilma Alimentos" style="width:100%; border-radius:1.5rem; filter:grayscale(0.3)" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=Vilma+Alimentos'"></div>
+        <div class="fade-up">
+          <img src="https://i.ibb.co/6RqzCyM6/experiencia.jpg" alt="Experiência Vilma Alimentos" style="width:100%; border-radius:1.5rem; filter:grayscale(0.3)" loading="lazy">
+        </div>
         <div class="fade-up"><h2><span data-key="career_title">Experiência</span> <span class="text-accent text-glow">Profissional</span></h2>
           <p style="margin-bottom:1rem" data-key="career_p1">Antes de me mudar para Joinville - SC, trabalhei como <strong>Jovem Aprendiz Administrativo na Vilma Alimentos</strong> (Contagem - MG) por <strong>1 ano e 2 meses</strong>. Lá, desenvolvi habilidades em rotinas administrativas, organização de documentos, atendimento interno e uso de ferramentas digitais como Office 365.</p>
           <p style="margin-bottom:1rem" data-key="career_p2">Além da experiência administrativa, tenho projetos no GitHub que mostram minha evolução prática em desenvolvimento web e lógica de programação. Cada projeto é um desafio que eu busquei e resolvi.</p>
@@ -198,7 +200,7 @@
     </div>
   </section>
   
-  <!-- Currículo (acordeão) -->
+  <!-- Currículo -->
   <section id="curriculo" class="fade-up bg-secondary">
     <div class="container">
       <h2 style="text-align:center" class="fade-up"><span class="text-accent text-glow" data-key="resume_title">Currículo</span></h2>
@@ -250,7 +252,7 @@
 </main>
 <footer><p>&copy; 2026 Daniel Souza. Todos os direitos reservados.</p><button id="backToTop" style="background:none; border:none; margin-top:1rem; cursor:pointer; color:hsl(var(--accent))"><i class="fas fa-arrow-up"></i> <span data-key="back_top">Voltar ao topo</span></button></footer>
 
-<!-- Modal com dois botões: GitHub e Demonstração -->
+<!-- Modal -->
 <div id="projectModal" class="modal">
   <div class="modal-content">
     <span class="close-modal" id="closeModalBtn">&times;</span>
@@ -267,15 +269,15 @@
 </div>
 
 <script>
-  // ========== PROJETOS COM LINK DE DEMONSTRAÇÃO (LINKEDIN) ==========
+  // PROJETOS COM IMAGENS HOSPEDADAS
   const projectsData = {
     pt: [
-      { id:1, image:'imagens/imagem-projeto1.png', title:'Nubank Website', tech:'HTML, CSS, JavaScript', desc:'Aplicação web inspirada na experiência visual do Nubank, desenvolvida com foco em interface moderna, animações interativas e responsividade. O projeto simula funcionalidades presentes em plataformas bancárias digitais, incluindo autenticação visual, alternância de temas, múltiplos idiomas e componentes dinâmicos para proporcionar uma experiência mais imersiva e profissional.', github:'https://github.com/Danielmsouza-dev/nubank-website', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_desenvolvimentoweb-frontend-javascript-ugcPost-7454232686887399424-2Brw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
-      { id:2, image:'imagens/imagem-projeto1.png', title:'Spotfy Clone', tech:'HTML, CSS, JavaScript', desc:'Aplicação web inspirada na experiência visual do Spotify, desenvolvida com foco em design moderno, interatividade e responsividade. O projeto recria elementos presentes em plataformas de streaming musical, incluindo animações dinâmicas, seções interativas, componentes visuais avançados e uma interface totalmente adaptada para diferentes dispositivos.', github:'https://github.com/restoffkaua08-afk/Sportfy_Clone', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_frontend-html-css-ugcPost-7454234378664329216-ajbN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
+      { id:1, image:'https://i.ibb.co/j9bbMz6Y/imagem-projeto1.png', title:'Nubank Website', tech:'HTML, CSS, JavaScript', desc:'Aplicação web inspirada na experiência visual do Nubank, desenvolvida com foco em interface moderna, animações interativas e responsividade. O projeto simula funcionalidades presentes em plataformas bancárias digitais, incluindo autenticação visual, alternância de temas, múltiplos idiomas e componentes dinâmicos para proporcionar uma experiência mais imersiva e profissional.', github:'https://github.com/Danielmsouza-dev/nubank-website', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_desenvolvimentoweb-frontend-javascript-ugcPost-7454232686887399424-2Brw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
+      { id:2, image:'https://i.ibb.co/HDGwkW5v/Imagem-projeto2.png', title:'Spotfy Clone', tech:'HTML, CSS, JavaScript', desc:'Aplicação web inspirada na experiência visual do Spotify, desenvolvida com foco em design moderno, interatividade e responsividade. O projeto recria elementos presentes em plataformas de streaming musical, incluindo animações dinâmicas, seções interativas, componentes visuais avançados e uma interface totalmente adaptada para diferentes dispositivos.', github:'https://github.com/restoffkaua08-afk/Sportfy_Clone', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_frontend-html-css-ugcPost-7454234378664329216-ajbN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
     ],
     en: [
-      { id:1, image:'imagens/imagem-projeto1.png', title:'Nubank Website', tech:'HTML, CSS, JavaScript', desc:'Web application inspired by the Nubank digital banking experience, developed with a focus on modern UI design, interactive animations, and responsiveness. The project simulates features commonly found in digital banking platforms, including visual authentication flows, theme switching, multilingual support, and dynamic components to create a more immersive and professional user experience.', github:'https://github.com/Danielmsouza-dev/nubank-website', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_desenvolvimentoweb-frontend-javascript-ugcPost-7454232686887399424-2Brw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
-      { id:2, image:'imagens/imagem-projeto2.png', title:'Spotify Clone', tech:'HTML, CSS, JavaScript', desc:'Web application inspired by the Spotify streaming experience, developed with a focus on modern design, interactivity, and responsiveness. The project recreates elements commonly found in music streaming platforms, including dynamic animations, interactive sections, advanced visual components, and a fully responsive interface optimized for different devices.', github:'https://github.com/restoffkaua08-afk/Sportfy_Clone', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_frontend-html-css-ugcPost-7454234378664329216-ajbN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
+      { id:1, image:'https://i.ibb.co/j9bbMz6Y/imagem-projeto1.png', title:'Nubank Website', tech:'HTML, CSS, JavaScript', desc:'Web application inspired by the Nubank digital banking experience, developed with a focus on modern UI design, interactive animations, and responsiveness. The project simulates features commonly found in digital banking platforms, including visual authentication flows, theme switching, multilingual support, and dynamic components to create a more immersive and professional user experience.', github:'https://github.com/Danielmsouza-dev/nubank-website', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_desenvolvimentoweb-frontend-javascript-ugcPost-7454232686887399424-2Brw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
+      { id:2, image:'https://i.ibb.co/HDGwkW5v/Imagem-projeto2.png', title:'Spotify Clone', tech:'HTML, CSS, JavaScript', desc:'Web application inspired by the Spotify streaming experience, developed with a focus on modern design, interactivity, and responsiveness. The project recreates elements commonly found in music streaming platforms, including dynamic animations, interactive sections, advanced visual components, and a fully responsive interface optimized for different devices.', github:'https://github.com/restoffkaua08-afk/Sportfy_Clone', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_frontend-html-css-ugcPost-7454234378664329216-ajbN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
     ]
   };
 
@@ -289,8 +291,7 @@
     currentProjects.forEach(proj => {
       const card = document.createElement('div');
       card.className = 'projeto-card';
-      // Substituído via.placeholder por placehold.co
-      card.innerHTML = `<div class="projeto-img"><img src="${proj.image}" alt="${proj.title}" loading="lazy" onerror="this.src='https://placehold.co/400x225?text=${encodeURIComponent(proj.title)}'"></div><div class="projeto-info"><h3>${proj.title}</h3><p style="color:hsl(var(--muted-foreground));">${proj.tech}</p><p>${proj.desc.substring(0,80)}...</p></div>`;
+      card.innerHTML = `<div class="projeto-img"><img src="${proj.image}" alt="${proj.title}" loading="lazy"></div><div class="projeto-info"><h3>${proj.title}</h3><p style="color:hsl(var(--muted-foreground));">${proj.tech}</p><p>${proj.desc.substring(0,80)}...</p></div>`;
       card.addEventListener('click', () => openModal(proj));
       grid.appendChild(card);
     });
