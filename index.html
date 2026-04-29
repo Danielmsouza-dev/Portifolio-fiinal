@@ -13,434 +13,1112 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    :root{
-      --background:210 20% 98%;
-      --foreground:220 15% 15%;
-      --card:0 0% 100%;
-      --card-foreground:220 15% 15%;
-      --primary:191 100% 50%;
-      --primary-foreground:0 0% 0%;
-      --secondary:210 12% 95%;
-      --secondary-foreground:220 12% 30%;
-      --muted:210 10% 94%;
-      --muted-foreground:220 10% 45%;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --background: 210 20% 98%;
+      --foreground: 220 15% 15%;
+      --card: 0 0% 100%;
+      --card-foreground: 220 15% 15%;
+      --primary: 191 100% 50%;
+      --primary-foreground: 0 0% 0%;
+      --secondary: 210 12% 95%;
+      --secondary-foreground: 220 12% 30%;
+      --muted: 210 10% 94%;
+      --muted-foreground: 220 10% 45%;
       --accent: 220 13% 65%;
-      --accent-foreground:0 0% 100%;
-      --border:210 15% 88%;
-      --ring:220 13% 65%;
-      --glass-bg:rgba(255,255,255,0.7);
-      --glass-border:rgba(200,200,210,0.4);
+      --accent-foreground: 0 0% 100%;
+      --border: 210 15% 88%;
+      --ring: 220 13% 65%;
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(200, 200, 210, 0.4);
     }
-    body.dark{
-      --background:0 0% 6%;
-      --foreground:0 0% 96%;
-      --card:0 0% 10%;
-      --card-foreground:0 0% 96%;
-      --secondary:0 0% 12%;
-      --secondary-foreground:0 0% 80%;
-      --muted:0 0% 12%;
-      --muted-foreground:0 0% 69%;
-      --border:0 0% 20%;
-      --accent:220 13% 70%;
-      --accent-foreground:0 0% 0%;
-      --glass-bg:rgba(25,25,30,0.65);
-      --glass-border:rgba(70,80,90,0.45);
+
+    body.dark {
+      --background: 0 0% 6%;
+      --foreground: 0 0% 96%;
+      --card: 0 0% 10%;
+      --card-foreground: 0 0% 96%;
+      --secondary: 0 0% 12%;
+      --secondary-foreground: 0 0% 80%;
+      --muted: 0 0% 12%;
+      --muted-foreground: 0 0% 69%;
+      --border: 0 0% 20%;
+      --accent: 220 13% 70%;
+      --accent-foreground: 0 0% 0%;
+      --glass-bg: rgba(25, 25, 30, 0.65);
+      --glass-border: rgba(70, 80, 90, 0.45);
     }
-    body{background-color:hsl(var(--background));color:hsl(var(--foreground));font-family:'Outfit',sans-serif;transition:.2s;scroll-behavior:smooth;line-height:1.7}
-    h1,h2,h3,h4,h5,h6{font-weight:800;line-height:1.2;letter-spacing:-0.02em}
-    h1{font-size:clamp(2rem,8vw,4rem)}h2{font-size:clamp(1.8rem,6vw,3rem);margin-bottom:1.5rem}h3{font-size:1.3rem;margin-bottom:1rem}
-    .container{max-width:1280px;margin:0 auto;padding:0 1.5rem}
-    section{padding:3rem 0;border-top:1px solid hsla(220,13%,65%,0.15)}
-    .bg-secondary{background-color:hsl(var(--secondary)/0.6)}
-    .text-accent{color:hsl(var(--accent))}
-    .text-glow{text-shadow:0 0 12px hsla(220,13%,65%,0.4)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.8rem 2rem;border-radius:9999px;font-weight:700;transition:.2s;cursor:pointer;border:none;font-size:1rem;text-decoration:none}
-    .btn-primary{background-color:hsl(var(--accent));color:hsl(var(--accent-foreground))}
-    .btn-primary:hover{background-color:hsl(var(--accent)/0.85);transform:translateY(-2px)}
-    .btn-outline{background:transparent;border:1.5px solid hsl(var(--accent));color:hsl(var(--accent))}
-    .btn-outline:hover{background:hsl(var(--accent));color:#000}
-    header{position:fixed;top:0;width:100%;z-index:100;transition:.2s;padding:1rem 0}
-    header.scrolled{background:var(--glass-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--glass-border)}
-    nav{display:flex;justify-content:space-between;align-items:center;max-width:1280px;margin:0 auto;padding:0 1.5rem}
-    .logo{font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,hsl(var(--accent)),#cbd5e1);-webkit-background-clip:text;background-clip:text;color:transparent;cursor:pointer}
-    .nav-links{display:flex;gap:2rem;list-style:none}
-    .nav-links a{text-decoration:none;font-size:.95rem;font-weight:600;cursor:pointer;color:hsl(var(--foreground));transition:.2s;position:relative}
-    .nav-links a:hover,.nav-links a.active{color:hsl(var(--accent))}
-    .nav-links a.active::after{content:'';position:absolute;bottom:-6px;left:0;width:100%;height:2px;background:hsl(var(--accent));box-shadow:0 0 8px hsl(var(--accent))}
-    .theme-toggle,.lang-toggle{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:40px;padding:.4rem .9rem;cursor:pointer;color:hsl(var(--foreground));display:flex;align-items:center;gap:.5rem;font-weight:500;backdrop-filter:blur(4px)}
-    .menu-toggle{display:none;background:0 0;border:none;font-size:1.8rem;cursor:pointer;color:hsl(var(--foreground));z-index:101}
-    .floating-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-    .ring{position:absolute;border-radius:50%;filter:blur(70px);opacity:.15;animation:floatRing 18s infinite ease-in-out}
-    @keyframes floatRing{0%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.1)}100%{transform:translate(-20px,20px) scale(1)}}
-    @media(max-width:900px){
-      .menu-toggle{display:block}
-      .nav-links{
-        position:fixed;
-        top:0;
-        right:-100%;
-        width:70%;
-        max-width:300px;
-        height:100vh;
-        background:var(--glass-bg);
-        backdrop-filter:blur(20px);
-        flex-direction:column;
-        padding:5rem 2rem;
-        gap:1.8rem;
-        transition:right .3s ease;
-        border-left:1px solid var(--glass-border);
-        z-index:100;
-        box-shadow:-5px 0 15px rgba(0,0,0,0.1);
+
+    body {
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      font-family: 'Outfit', sans-serif;
+      transition: background-color 0.2s, color 0.2s;
+      scroll-behavior: smooth;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    h1 { font-size: clamp(2rem, 8vw, 4rem); }
+    h2 { font-size: clamp(1.8rem, 6vw, 3rem); margin-bottom: 1.5rem; }
+    h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 3rem 0;
+      border-top: 1px solid hsla(220, 13%, 65%, 0.15);
+    }
+
+    .bg-secondary {
+      background-color: hsl(var(--secondary) / 0.6);
+    }
+
+    .text-accent {
+      color: hsl(var(--accent));
+    }
+
+    .text-glow {
+      text-shadow: 0 0 12px hsla(220, 13%, 65%, 0.4);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: hsl(var(--accent));
+      color: hsl(var(--accent-foreground));
+    }
+    .btn-primary:hover {
+      background-color: hsl(var(--accent) / 0.85);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid hsl(var(--accent));
+      color: hsl(var(--accent));
+    }
+    .btn-outline:hover {
+      background: hsl(var(--accent));
+      color: #000;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      transition: background 0.2s, backdrop-filter 0.2s;
+      padding: 1rem 0;
+    }
+
+    header.scrolled {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, hsl(var(--accent)), #cbd5e1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      cursor: pointer;
+      z-index: 102;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: hsl(var(--foreground));
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: hsl(var(--accent));
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: hsl(var(--accent));
+      box-shadow: 0 0 8px hsl(var(--accent));
+    }
+
+    .theme-toggle,
+    .lang-toggle {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 40px;
+      padding: 0.4rem 0.9rem;
+      cursor: pointer;
+      color: hsl(var(--foreground));
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+      transition: background 0.2s;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 102;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: hsl(var(--foreground));
+      z-index: 102;
+    }
+
+    /* MOBILE: menu em tela cheia (100% largura e altura) */
+    @media (max-width: 900px) {
+      .logo {
+        display: none;
       }
-      .nav-links.active{right:0}
-      .header-actions{gap:.5rem}
-      .logo{font-size:1.4rem}
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(8px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        gap: 2rem;
+        transition: right 0.3s ease;
+        z-index: 101;
+        box-shadow: none;
+      }
+      .nav-links.active {
+        right: 0;
+      }
+      .nav-links a {
+        font-size: 1.4rem;
+        color: #fff;
+      }
+      .nav-links a.active::after {
+        background: hsl(var(--accent));
+        bottom: -8px;
+      }
+      .header-actions {
+        gap: 0.5rem;
+      }
     }
-    @media(max-width:700px){
-      section{padding:2rem 0}
-      .container{padding:0 1rem}
-      .skills-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:1rem}
-      .projetos-grid{grid-template-columns:1fr;gap:1.5rem}
-      .contact-buttons{flex-direction:column;align-items:center}
-      .contact-btn{width:100%;justify-content:center}
-      .idiomas-grid{flex-direction:column}
+
+    /* Ajustes de responsividade para telas pequenas */
+    @media (max-width: 700px) {
+      section {
+        padding: 2rem 0;
+      }
+      .container {
+        padding: 0 1rem;
+      }
+      #sobre p, #carreira p {
+        font-size: 0.9rem;
+      }
+      #sobre > .container > div {
+        gap: 1.5rem;
+      }
+      .projetos-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      .contact-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .idiomas-grid {
+        flex-direction: column;
+      }
+      /* Ajuste da foto no sobre */
+      #sobre .fade-up:last-child {
+        flex: 1.2;
+      }
     }
-    .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.2rem;margin-top:1rem}
-    .skill-card{background:var(--glass-bg);backdrop-filter:blur(6px);border:1px solid var(--glass-border);border-radius:1rem;padding:1rem .5rem;text-align:center;transition:.2s;display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:fadeInUp .5s ease backwards}
-    .skill-card i{font-size:2.2rem;color:hsl(var(--accent))}
-    .skill-card span{font-size:.85rem;font-weight:600}
-    .skill-card:hover{border-color:hsl(var(--accent));transform:translateY(-3px);box-shadow:0 0 15px hsla(220,13%,65%,0.3)}
-    .skills-grid .skill-card:nth-child(1){animation-delay:0s}.skills-grid .skill-card:nth-child(2){animation-delay:.05s}.skills-grid .skill-card:nth-child(3){animation-delay:.1s}.skills-grid .skill-card:nth-child(4){animation-delay:.15s}.skills-grid .skill-card:nth-child(5){animation-delay:.2s}.skills-grid .skill-card:nth-child(6){animation-delay:.25s}.skills-grid .skill-card:nth-child(7){animation-delay:.3s}.skills-grid .skill-card:nth-child(8){animation-delay:.35s}.skills-grid .skill-card:nth-child(9){animation-delay:.4s}.skills-grid .skill-card:nth-child(10){animation-delay:.45s}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    .soft-tag{background:hsl(var(--accent));color:#000;padding:.4rem 1.2rem;border-radius:40px;font-weight:700;font-size:.85rem;display:inline-block;margin:.25rem}
-    .accordion-item{background:var(--glass-bg);backdrop-filter:blur(6px);border:1px solid var(--glass-border);border-radius:1rem;margin-bottom:1rem;overflow:hidden}
-    .accordion-header{padding:1rem 1.2rem;cursor:pointer;font-weight:700;display:flex;justify-content:space-between;align-items:center}
-    .accordion-content{max-height:0;padding:0 1.2rem;overflow:hidden;transition:max-height .3s ease}
-    .accordion-item.open .accordion-content{max-height:400px;padding:0 1.2rem 1rem}
-    .projetos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem}
-    .projeto-card{background:var(--glass-bg);backdrop-filter:blur(6px);border:1px solid var(--glass-border);border-radius:1.2rem;overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s}
-    .projeto-card:hover{transform:translateY(-5px);border-color:hsl(var(--accent))}
-    .projeto-img{aspect-ratio:16/9;overflow:hidden;background:#1a1a1a}
-    .projeto-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
-    .projeto-card:hover .projeto-img img{transform:scale(1.03)}
-    .projeto-info{padding:1.2rem}
-    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;padding:1rem}
-    .modal-content{background:hsl(var(--card));max-width:900px;width:100%;border-radius:1.5rem;border:1px solid hsl(var(--accent));overflow:hidden;display:flex;flex-direction:row;flex-wrap:wrap}
-    .modal-image{flex:1.2;min-height:280px;background:#000}
-    .modal-image img{width:100%;height:100%;object-fit:cover}
-    .modal-text{flex:1;padding:1.8rem;display:flex;flex-direction:column;gap:1rem}
-    .modal-buttons{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.5rem}
-    .close-modal{position:absolute;top:12px;right:16px;font-size:1.8rem;background:rgba(0,0,0,.5);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff}
-    @media(max-width:700px){.modal-content{flex-direction:column}.modal-image{min-height:200px}}
-    footer{background:var(--glass-bg);backdrop-filter:blur(6px);padding:2rem;text-align:center;border-top:1px solid var(--glass-border)}
-    .idiomas-grid{display:flex;flex-wrap:wrap;gap:1rem;margin:1rem 0}
-    .idioma-card{background:var(--glass-bg);backdrop-filter:blur(6px);border:1px solid var(--glass-border);border-radius:1rem;padding:.8rem 1.2rem;flex:1;min-width:180px;text-align:center}
-    
-    .fade-up{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.2,0.9,0.4,1.1),transform 0.8s cubic-bezier(0.2,0.9,0.4,1.1)}
-    .fade-up.visible{opacity:1;transform:translateY(0)}
-    
-    .header-actions{display:flex;align-items:center;gap:1rem}
-    .contact-buttons{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;margin:1rem 0}
-    .contact-btn{display:inline-flex;align-items:center;gap:.8rem;padding:1rem 2rem;border-radius:9999px;font-weight:700;font-size:1.1rem;text-decoration:none;transition:.2s;background:var(--glass-bg);backdrop-filter:blur(8px);border:1px solid var(--glass-border);color:hsl(var(--foreground))}
-    .contact-btn i{font-size:1.5rem}
-    .contact-btn:hover{transform:translateY(-3px);border-color:hsl(var(--accent));background:hsl(var(--accent));color:#000}
-    .contact-btn.whatsapp:hover{background:#25D366;border-color:#25D366;color:#fff}
-    .contact-btn.email:hover{background:#D44638;border-color:#D44638;color:#fff}
-    .form-contato{background:var(--glass-bg);backdrop-filter:blur(8px);border-radius:1.5rem;padding:2rem;margin-top:2rem;border:1px solid var(--glass-border)}
-    .form-group{margin-bottom:1.2rem}
-    .form-group input,.form-group textarea{width:100%;padding:.8rem 1rem;background:hsl(var(--card));border:1px solid var(--glass-border);border-radius:.8rem;color:hsl(var(--foreground));font-family:inherit;transition:.2s}
-    .form-group input:focus,.form-group textarea:focus{outline:none;border-color:hsl(var(--accent));box-shadow:0 0 0 2px hsla(220,13%,65%,0.3)}
-    textarea{resize:none}
-    .form-status{text-align:center;margin-top:1rem;font-weight:500}
+
+    /* Grade de Habilidades */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .skill-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--glass-border);
+      border-radius: 1rem;
+      padding: 1rem 0.5rem;
+      text-align: center;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      animation: fadeInUp 0.5s ease backwards;
+    }
+
+    .skill-card i {
+      font-size: 2.2rem;
+      color: hsl(var(--accent));
+    }
+
+    .skill-card span {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .skill-card:hover {
+      border-color: hsl(var(--accent));
+      transform: translateY(-3px);
+      box-shadow: 0 0 15px hsla(220, 13%, 65%, 0.3);
+    }
+
+    /* Soft Skills */
+    .soft-tag {
+      background: hsl(var(--accent));
+      color: #000;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin: 0.25rem;
+    }
+
+    /* Accordion */
+    .accordion-item {
+      background: var(--glass-bg);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--glass-border);
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .accordion-header {
+      padding: 1rem 1.2rem;
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .accordion-content {
+      max-height: 0;
+      padding: 0 1.2rem;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .accordion-item.open .accordion-content {
+      max-height: 400px;
+      padding: 0 1.2rem 1rem;
+    }
+
+    /* Projetos */
+    .projetos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .projeto-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--glass-border);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .projeto-card:hover {
+      transform: translateY(-5px);
+      border-color: hsl(var(--accent));
+    }
+    .projeto-img {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+    .projeto-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .projeto-card:hover .projeto-img img {
+      transform: scale(1.03);
+    }
+    .projeto-info {
+      padding: 1.2rem;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-content {
+      background: hsl(var(--card));
+      max-width: 900px;
+      width: 100%;
+      border-radius: 1.5rem;
+      border: 1px solid hsl(var(--accent));
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .modal-image {
+      flex: 1.2;
+      min-height: 280px;
+      background: #000;
+    }
+    .modal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .modal-text {
+      flex: 1;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .modal-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .close-modal {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 1.8rem;
+      background: rgba(0, 0, 0, 0.5);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+    }
+    @media (max-width: 700px) {
+      .modal-content {
+        flex-direction: column;
+      }
+      .modal-image {
+        min-height: 200px;
+      }
+    }
+
+    footer {
+      background: var(--glass-bg);
+      backdrop-filter: blur(6px);
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .idiomas-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .idioma-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--glass-border);
+      border-radius: 1rem;
+      padding: 0.8rem 1.2rem;
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: 0.2s;
+      background: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      color: hsl(var(--foreground));
+    }
+    .contact-btn i {
+      font-size: 1.5rem;
+    }
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      border-color: hsl(var(--accent));
+      background: hsl(var(--accent));
+      color: #000;
+    }
+    .contact-btn.whatsapp:hover {
+      background: #25D366;
+      border-color: #25D366;
+      color: #fff;
+    }
+    .contact-btn.email:hover {
+      background: #D44638;
+      border-color: #D44638;
+      color: #fff;
+    }
+
+    .form-contato {
+      background: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin-top: 2rem;
+      border: 1px solid var(--glass-border);
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: hsl(var(--card));
+      border: 1px solid var(--glass-border);
+      border-radius: 0.8rem;
+      color: hsl(var(--foreground));
+      font-family: inherit;
+      transition: 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: hsl(var(--accent));
+      box-shadow: 0 0 0 2px hsla(220, 13%, 65%, 0.3);
+    }
+    textarea {
+      resize: none;
+    }
+    .form-status {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    .floating-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.15;
+      animation: floatRing 18s infinite ease-in-out;
+    }
+    @keyframes floatRing {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -30px) scale(1.1); }
+      100% { transform: translate(-20px, 20px) scale(1); }
+    }
+
+    .skills-grid .skill-card:nth-child(1) { animation-delay: 0s; }
+    .skills-grid .skill-card:nth-child(2) { animation-delay: 0.05s; }
+    .skills-grid .skill-card:nth-child(3) { animation-delay: 0.1s; }
+    .skills-grid .skill-card:nth-child(4) { animation-delay: 0.15s; }
+    .skills-grid .skill-card:nth-child(5) { animation-delay: 0.2s; }
+    .skills-grid .skill-card:nth-child(6) { animation-delay: 0.25s; }
+    .skills-grid .skill-card:nth-child(7) { animation-delay: 0.3s; }
+    .skills-grid .skill-card:nth-child(8) { animation-delay: 0.35s; }
+    .skills-grid .skill-card:nth-child(9) { animation-delay: 0.4s; }
+    .skills-grid .skill-card:nth-child(10) { animation-delay: 0.45s; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
-<div class="floating-bg" id="floatingBg"></div>
-<header id="header">
-  <nav>
-    <div class="logo" id="logoHome" tabindex="0" role="button">Daniel Souza</div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#hero" data-section="hero" data-key="nav_home">Início</a></li>
-      <li><a href="#sobre" data-section="sobre" data-key="nav_about">Sobre</a></li>
-      <li><a href="#carreira" data-section="carreira" data-key="nav_career">Carreira</a></li>
-      <li><a href="#curriculo" data-section="curriculo" data-key="nav_resume">Currículo</a></li>
-      <li><a href="#projetos" data-section="projetos" data-key="nav_projects">Projetos</a></li>
-      <li><a href="#contatos" data-section="contatos" data-key="nav_contact">Contatos</a></li>
-    </ul>
-    <div class="header-actions">
-      <button class="lang-toggle" id="langToggle" aria-label="Idioma"><i class="fas fa-globe"></i> <span id="langText">PT</span></button>
-      <button class="theme-toggle" id="themeToggle" aria-label="Tema"><i class="fas fa-moon"></i> <span>Tema</span></button>
-    </div>
-  </nav>
-</header>
-<main>
-  <!-- Hero -->
-  <section id="hero">
-    <div class="container" style="text-align:center; padding:6rem 0 4rem">
-      <h1><span data-key="hero_greeting">Olá, eu sou</span> <span class="text-accent text-glow">Daniel Souza</span></h1>
-      <p style="font-size:1.3rem; color:hsl(var(--muted-foreground)); max-width:700px; margin:1rem auto 2rem" data-key="hero_title">Desenvolvedor Web | Técnico em TI | Estudante SENAI</p>
-      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap">
-        <a href="pdf_curriculo/Curriculo_Daniel.pdf" download class="btn btn-outline"><i class="fas fa-download"></i> <span data-key="download_cv">Download CV</span></a>
+  <div class="floating-bg" id="floatingBg"></div>
+  <header id="header">
+    <nav>
+      <div class="logo" id="logoHome" tabindex="0" role="button">Daniel Souza</div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero" data-section="hero" data-key="nav_home">Início</a></li>
+        <li><a href="#sobre" data-section="sobre" data-key="nav_about">Sobre</a></li>
+        <li><a href="#carreira" data-section="carreira" data-key="nav_career">Carreira</a></li>
+        <li><a href="#curriculo" data-section="curriculo" data-key="nav_resume">Currículo</a></li>
+        <li><a href="#projetos" data-section="projetos" data-key="nav_projects">Projetos</a></li>
+        <li><a href="#contatos" data-section="contatos" data-key="nav_contact">Contatos</a></li>
+      </ul>
+      <div class="header-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Idioma"><i class="fas fa-globe"></i> <span id="langText">PT</span></button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Tema"><i class="fas fa-moon"></i> <span>Tema</span></button>
       </div>
-      <div style="display:flex; gap:2rem; justify-content:center; margin-top:2.5rem">
-        <a href="https://www.linkedin.com/in/daniel-souza-826744404" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--muted-foreground)); font-size:1.5rem"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/Danielmsouza-dev" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--muted-foreground)); font-size:1.5rem"><i class="fab fa-github"></i></a>
-        <a href="mailto:danielmax2513@outlook.com" style="color:hsl(var(--muted-foreground)); font-size:1.5rem"><i class="fas fa-envelope"></i></a>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Sobre -->
-  <section id="sobre" class="fade-up bg-secondary">
-    <div class="container">
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center">
-        <div class="fade-up"><h2><span data-key="about_title">Sobre</span> <span class="text-accent text-glow">Mim</span></h2>
-          <p style="margin-bottom:1rem" data-key="about_p1">Sou <strong>Daniel Max Soares Souza</strong>, tenho 16 anos e estou cursando o 2º ano do ensino médio e o Técnico em Informática para Internet no SENAI (previsão de conclusão: dezembro/2027).</p>
-          <p style="margin-bottom:1rem" data-key="about_p2">Sou movido por tecnologia e por resolver problemas reais. Tenho projetos no GitHub onde aplico meus conhecimentos em <strong>HTML, CSS, JavaScript e C</strong>. Acredito que a prática é o que realmente ensina.</p>
-          <p data-key="about_p3">Estou em busca da minha primeira oportunidade profissional na área de TI, como jovem aprendiz ou estagiário, trazendo vontade de aprender, dedicação e foco em resultados.</p>
+    </nav>
+  </header>
+  <main>
+    <!-- Hero -->
+    <section id="hero">
+      <div class="container" style="text-align:center; padding:6rem 0 4rem">
+        <h1><span data-key="hero_greeting">Olá, eu sou</span> <span class="text-accent text-glow">Daniel Souza</span></h1>
+        <p style="font-size:1.3rem; color:hsl(var(--muted-foreground)); max-width:700px; margin:1rem auto 2rem" data-key="hero_title">Desenvolvedor Web | Técnico em TI | Estudante SENAI</p>
+        <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap">
+          <a href="pdf_curriculo/Curriculo_Daniel.pdf" download class="btn btn-outline"><i class="fas fa-download"></i> <span data-key="download_cv">Download CV</span></a>
         </div>
-        <div class="fade-up" style="border-radius:1.5rem; overflow:hidden; border:2px solid hsl(var(--accent)/0.5)">
-          <img src="https://i.ibb.co/zH8zQyCt/perfil.jpg" alt="Daniel Souza" style="width:100%; object-fit:cover; aspect-ratio:1/1; filter:grayscale(0.4)" loading="lazy">
+        <div style="display:flex; gap:2rem; justify-content:center; margin-top:2.5rem">
+          <a href="https://www.linkedin.com/in/daniel-souza-826744404" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--muted-foreground)); font-size:1.5rem"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/Danielmsouza-dev" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--muted-foreground)); font-size:1.5rem"><i class="fab fa-github"></i></a>
+          <a href="mailto:danielmax2513@outlook.com" style="color:hsl(var(--muted-foreground)); font-size:1.5rem"><i class="fas fa-envelope"></i></a>
         </div>
       </div>
-    </div>
-  </section>
-  
-  <!-- Carreira / Experiência -->
-  <section id="carreira" class="fade-up">
-    <div class="container">
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center">
-        <div class="fade-up">
-          <img src="https://i.ibb.co/6RqzCyM6/experiencia.jpg" alt="Experiência Vilma Alimentos" style="width:100%; border-radius:1.5rem; filter:grayscale(0.3)" loading="lazy">
-        </div>
-        <div class="fade-up"><h2><span data-key="career_title">Experiência</span> <span class="text-accent text-glow">Profissional</span></h2>
-          <p style="margin-bottom:1rem" data-key="career_p1">Antes de me mudar para Joinville - SC, trabalhei como <strong>Jovem Aprendiz Administrativo na Vilma Alimentos</strong> (Contagem - MG) por <strong>1 ano e 2 meses</strong>. Lá, desenvolvi habilidades em rotinas administrativas, organização de documentos, atendimento interno e uso de ferramentas digitais como Office 365.</p>
-          <p style="margin-bottom:1rem" data-key="career_p2">Além da experiência administrativa, tenho projetos no GitHub que mostram minha evolução prática em desenvolvimento web e lógica de programação. Cada projeto é um desafio que eu busquei e resolvi.</p>
-          <p data-key="career_p3">Atualmente, curso <strong>Técnico em Informática para Internet no SENAI</strong> e continuo estudando front-end e back-end para me tornar um profissional completo. Busco minha primeira oportunidade na área de TI para unir minha experiência corporativa com minha paixão por tecnologia.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Currículo -->
-  <section id="curriculo" class="fade-up bg-secondary">
-    <div class="container">
-      <h2 style="text-align:center" class="fade-up"><span class="text-accent text-glow" data-key="resume_title">Currículo</span></h2>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:3rem">
-        <div class="fade-up"><h3 data-key="academic_title">Formação Acadêmica</h3>
-          <div class="accordion-item" data-group="academic"><div class="accordion-header"><span data-key="academic_1_title">Técnico em Informática para Internet (SENAI)</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content"><strong data-key="academic_1_date">Março/2026 - Dezembro/2027</strong><br><span data-key="academic_1_desc">Lógica de programação, desenvolvimento web, programação (HTML, CSS, JavaScript, C), banco de dados (básico), manutenção e configuração de computadores.</span></div></div>
-          <div class="accordion-item" data-group="academic"><div class="accordion-header"><span data-key="academic_2_title">Ensino Médio (2º ano)</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content"><strong data-key="academic_2_date">Conclusão: Dezembro/2027</strong><br><span data-key="academic_2_desc">Instituição: E.E.M Bailarina Liselott Trinks</span></div></div>
-        </div>
-        <div class="fade-up"><h3 data-key="courses_title">Cursos Complementares</h3>
-          <div class="accordion-item" data-group="courses"><div class="accordion-header"><span data-key="course_1_title">Curso de Front End (EBAC)</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content"><strong data-key="course_1_date">Em andamento</strong><br><span data-key="course_1_desc">Aprendizado de tecnologias front-end para desenvolvimento web.</span></div></div>
-          <div class="accordion-item" data-group="courses"><div class="accordion-header"><span data-key="course_2_title">Hardware: Montagem e Manutenção (SENAC)</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content"><strong data-key="course_2_date">2024</strong><br><span data-key="course_2_desc">Componentes de hardware, montagem, manutenção preventiva e corretiva.</span></div></div>
-          <div class="accordion-item" data-group="courses"><div class="accordion-header"><span data-key="course_3_title">Web Designer (Site Ninja PRO)</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content"><strong data-key="course_3_date">2024</strong><br><span data-key="course_3_desc">Design de websites, ferramentas e boas práticas.</span></div></div>
-          <div class="accordion-item" data-group="courses"><div class="accordion-header"><span data-key="course_4_title">Excel Básico (Fundação Bradesco)</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content"><strong data-key="course_4_date">2023</strong><br><span data-key="course_4_desc">Conceitos básicos de planilhas eletrônicas, fórmulas e funções.</span></div></div>
-        </div>
-      </div>
-      <div class="fade-up" style="margin-bottom:2rem"><h3 style="text-align:center" data-key="languages_title">Idiomas</h3><div class="idiomas-grid"><div class="idioma-card"><i class="fas fa-language"></i> <strong data-key="lang_pt">Português</strong><br><span data-key="lang_pt_desc">Língua materna</span></div><div class="idioma-card"><i class="fas fa-language"></i> <strong data-key="lang_en">Inglês</strong><br><span data-key="lang_en_desc">Nível A2 (Básico)</span></div></div></div>
-      <div class="fade-up" style="margin-bottom:2rem"><h3 style="text-align:center" data-key="soft_title">Soft Skills</h3><div style="display:flex; flex-wrap:wrap; justify-content:center; gap:.6rem"><span class="soft-tag" data-key="soft_1">Proatividade</span><span class="soft-tag" data-key="soft_2">Trabalho em equipe</span><span class="soft-tag" data-key="soft_3">Comunicação</span><span class="soft-tag" data-key="soft_4">Organização</span><span class="soft-tag" data-key="soft_5">Resolução de problemas</span><span class="soft-tag" data-key="soft_6">Facilidade de aprendizado</span><span class="soft-tag" data-key="soft_7">Interesse em tecnologia</span></div></div>
-      <div class="fade-up"><h3 style="text-align:center" data-key="hard_title">Hard Skills & Tecnologias</h3><div class="skills-grid"><div class="skill-card"><i class="fab fa-html5"></i><span>HTML5</span></div><div class="skill-card"><i class="fab fa-css3-alt"></i><span>CSS3</span></div><div class="skill-card"><i class="fab fa-js"></i><span>JavaScript</span></div><div class="skill-card"><i class="fas fa-code"></i><span>C</span></div><div class="skill-card"><i class="fas fa-tools"></i><span>Manutenção</span></div><div class="skill-card"><i class="fas fa-microchip"></i><span>Hardware</span></div><div class="skill-card"><i class="fas fa-chart-line"></i><span>Office 365</span></div><div class="skill-card"><i class="fas fa-file-alt"></i><span>ABNT</span></div></div></div>
-    </div>
-  </section>
-  
-  <!-- Projetos -->
-  <section id="projetos" class="fade-up">
-    <div class="container"><h2 style="text-align:center" class="fade-up"><span data-key="projects_title">Meus</span> <span class="text-accent text-glow">Projetos</span></h2><div class="projetos-grid" id="projetosGrid"></div></div>
-  </section>
-  
-  <!-- Contatos -->
-  <section id="contatos" class="fade-up bg-secondary">
-    <div class="container" style="max-width:800px"><h2 style="text-align:center" class="fade-up"><span data-key="contact_title">Vamos</span> <span class="text-accent text-glow">Conversar?</span></h2>
-      <div class="contact-buttons fade-up">
-        <a href="https://wa.me/5531972671565?text=Olá%20Daniel%2C%20vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20oportunidades%20na%20área%20de%20tecnologia." target="_blank" rel="noopener noreferrer" class="contact-btn whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-        <a href="mailto:danielmax2513@outlook.com?subject=Portfólio%20-%20Oportunidade%20Profissional&body=Olá%20Daniel%2C%20vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20oportunidades%20na%20área%20de%20tecnologia." class="contact-btn email"><i class="fas fa-envelope"></i> E-mail</a>
-      </div>
-      <div class="form-contato fade-up"><h3 style="text-align:center; margin-bottom:1rem" data-key="form_title">Envie uma mensagem direta</h3>
-        <form id="contactForm" action="https://formspree.io/f/xgvazkqr" method="POST">
-          <div class="form-group"><input type="text" name="name" data-key-placeholder="form_name" placeholder="Seu nome" required></div>
-          <div class="form-group"><input type="email" name="email" data-key-placeholder="form_email" placeholder="Seu e-mail" required></div>
-          <div class="form-group"><textarea name="message" rows="4" maxlength="500" data-key-placeholder="form_message" placeholder="Sua mensagem..." required></textarea><div style="text-align:right; font-size:0.75rem; margin-top:0.25rem; color:hsl(var(--muted-foreground))"><span id="charCount">0</span>/500</div></div>
-          <button type="submit" class="btn btn-primary" style="width:100%" data-key="form_send">Enviar mensagem</button>
-          <div id="formStatus" class="form-status"></div>
-        </form>
-      </div>
-      <div class="fade-up" style="display:flex; justify-content:center; gap:2rem; margin-top:2rem">
-        <a href="https://www.linkedin.com/in/daniel-souza-826744404" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--accent))"><i class="fab fa-linkedin"></i> LinkedIn</a>
-        <a href="https://github.com/Danielmsouza-dev" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--accent))"><i class="fab fa-github"></i> GitHub</a>
-      </div>
-    </div>
-  </section>
-</main>
-<footer><p>&copy; 2026 Daniel Souza. Todos os direitos reservados.</p><button id="backToTop" style="background:none; border:none; margin-top:1rem; cursor:pointer; color:hsl(var(--accent))"><i class="fas fa-arrow-up"></i> <span data-key="back_top">Voltar ao topo</span></button></footer>
+    </section>
 
-<!-- Modal -->
-<div id="projectModal" class="modal">
-  <div class="modal-content">
-    <span class="close-modal" id="closeModalBtn">&times;</span>
-    <div class="modal-image"><img id="modalImg" src="" alt="projeto" loading="lazy"></div>
-    <div class="modal-text">
-      <h3 id="modalTitle"></h3>
-      <p id="modalDesc"></p>
-      <div class="modal-buttons">
-        <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fab fa-github"></i> <span data-key="view_github">Ver no GitHub</span></a>
-        <a id="modalDemoLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fab fa-linkedin"></i> <span data-key="view_demo">Ver demonstração</span></a>
+    <!-- Sobre -->
+    <section id="sobre" class="fade-up bg-secondary">
+      <div class="container">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center">
+          <div class="fade-up">
+            <h2><span data-key="about_title">Sobre</span> <span class="text-accent text-glow">Mim</span></h2>
+            <p style="margin-bottom:1rem" data-key="about_p1">Sou <strong>Daniel Max Soares Souza</strong>, tenho 16 anos e estou cursando o 2º ano do ensino médio e o Técnico em Informática para Internet no SENAI (previsão de conclusão: dezembro/2027).</p>
+            <p style="margin-bottom:1rem" data-key="about_p2">Sou movido por tecnologia e por resolver problemas reais. Tenho projetos no GitHub onde aplico meus conhecimentos em <strong>HTML, CSS, JavaScript e C</strong>. Acredito que a prática é o que realmente ensina.</p>
+            <p data-key="about_p3">Estou em busca da minha primeira oportunidade profissional na área de TI, como jovem aprendiz ou estagiário, trazendo vontade de aprender, dedicação e foco em resultados.</p>
+          </div>
+          <div class="fade-up" style="border-radius:1.5rem; overflow:hidden; border:2px solid hsl(var(--accent)/0.5)">
+            <img src="https://i.ibb.co/zH8zQyCt/perfil.jpg" alt="Daniel Souza" style="width:100%; object-fit:cover; aspect-ratio:1/1; filter:grayscale(0.4)" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carreira / Experiência -->
+    <section id="carreira" class="fade-up">
+      <div class="container">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center">
+          <div class="fade-up">
+            <img src="https://i.ibb.co/6RqzCyM6/experiencia.jpg" alt="Experiência Vilma Alimentos" style="width:100%; border-radius:1.5rem; filter:grayscale(0.3)" loading="lazy">
+          </div>
+          <div class="fade-up">
+            <h2><span data-key="career_title">Experiência</span> <span class="text-accent text-glow">Profissional</span></h2>
+            <p style="margin-bottom:1rem" data-key="career_p1">Antes de me mudar para Joinville - SC, trabalhei como <strong>Jovem Aprendiz Administrativo na Vilma Alimentos</strong> (Contagem - MG) por <strong>1 ano e 2 meses</strong>. Lá, desenvolvi habilidades em rotinas administrativas, organização de documentos, atendimento interno e uso de ferramentas digitais como Office 365.</p>
+            <p style="margin-bottom:1rem" data-key="career_p2">Além da experiência administrativa, tenho projetos no GitHub que mostram minha evolução prática em desenvolvimento web e lógica de programação. Cada projeto é um desafio que eu busquei e resolvi.</p>
+            <p data-key="career_p3">Atualmente, curso <strong>Técnico em Informática para Internet no SENAI</strong> e continuo estudando front-end e back-end para me tornar um profissional completo. Busco minha primeira oportunidade na área de TI para unir minha experiência corporativa com minha paixão por tecnologia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Currículo -->
+    <section id="curriculo" class="fade-up bg-secondary">
+      <div class="container">
+        <h2 style="text-align:center" class="fade-up"><span class="text-accent text-glow" data-key="resume_title">Currículo</span></h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:3rem">
+          <div class="fade-up">
+            <h3 data-key="academic_title">Formação Acadêmica</h3>
+            <div class="accordion-item" data-group="academic">
+              <div class="accordion-header"><span data-key="academic_1_title">Técnico em Informática para Internet (SENAI)</span> <i class="fas fa-chevron-down"></i></div>
+              <div class="accordion-content"><strong data-key="academic_1_date">Março/2026 - Dezembro/2027</strong><br><span data-key="academic_1_desc">Lógica de programação, desenvolvimento web, programação (HTML, CSS, JavaScript, C), banco de dados (básico), manutenção e configuração de computadores.</span></div>
+            </div>
+            <div class="accordion-item" data-group="academic">
+              <div class="accordion-header"><span data-key="academic_2_title">Ensino Médio (2º ano)</span> <i class="fas fa-chevron-down"></i></div>
+              <div class="accordion-content"><strong data-key="academic_2_date">Conclusão: Dezembro/2027</strong><br><span data-key="academic_2_desc">Instituição: E.E.M Bailarina Liselott Trinks</span></div>
+            </div>
+          </div>
+          <div class="fade-up">
+            <h3 data-key="courses_title">Cursos Complementares</h3>
+            <div class="accordion-item" data-group="courses">
+              <div class="accordion-header"><span data-key="course_1_title">Curso de Front End (EBAC)</span> <i class="fas fa-chevron-down"></i></div>
+              <div class="accordion-content"><strong data-key="course_1_date">Em andamento</strong><br><span data-key="course_1_desc">Aprendizado de tecnologias front-end para desenvolvimento web.</span></div>
+            </div>
+            <div class="accordion-item" data-group="courses">
+              <div class="accordion-header"><span data-key="course_2_title">Hardware: Montagem e Manutenção (SENAC)</span> <i class="fas fa-chevron-down"></i></div>
+              <div class="accordion-content"><strong data-key="course_2_date">2024</strong><br><span data-key="course_2_desc">Componentes de hardware, montagem, manutenção preventiva e corretiva.</span></div>
+            </div>
+            <div class="accordion-item" data-group="courses">
+              <div class="accordion-header"><span data-key="course_3_title">Web Designer (Site Ninja PRO)</span> <i class="fas fa-chevron-down"></i></div>
+              <div class="accordion-content"><strong data-key="course_3_date">2024</strong><br><span data-key="course_3_desc">Design de websites, ferramentas e boas práticas.</span></div>
+            </div>
+            <div class="accordion-item" data-group="courses">
+              <div class="accordion-header"><span data-key="course_4_title">Excel Básico (Fundação Bradesco)</span> <i class="fas fa-chevron-down"></i></div>
+              <div class="accordion-content"><strong data-key="course_4_date">2023</strong><br><span data-key="course_4_desc">Conceitos básicos de planilhas eletrônicas, fórmulas e funções.</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up" style="margin-bottom:2rem">
+          <h3 style="text-align:center" data-key="languages_title">Idiomas</h3>
+          <div class="idiomas-grid">
+            <div class="idioma-card"><i class="fas fa-language"></i> <strong data-key="lang_pt">Português</strong><br><span data-key="lang_pt_desc">Língua materna</span></div>
+            <div class="idioma-card"><i class="fas fa-language"></i> <strong data-key="lang_en">Inglês</strong><br><span data-key="lang_en_desc">Nível A2 (Básico)</span></div>
+          </div>
+        </div>
+        <div class="fade-up" style="margin-bottom:2rem">
+          <h3 style="text-align:center" data-key="soft_title">Soft Skills</h3>
+          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:.6rem">
+            <span class="soft-tag" data-key="soft_1">Proatividade</span>
+            <span class="soft-tag" data-key="soft_2">Trabalho em equipe</span>
+            <span class="soft-tag" data-key="soft_3">Comunicação</span>
+            <span class="soft-tag" data-key="soft_4">Organização</span>
+            <span class="soft-tag" data-key="soft_5">Resolução de problemas</span>
+            <span class="soft-tag" data-key="soft_6">Facilidade de aprendizado</span>
+            <span class="soft-tag" data-key="soft_7">Interesse em tecnologia</span>
+          </div>
+        </div>
+        <div class="fade-up">
+          <h3 style="text-align:center" data-key="hard_title">Hard Skills & Tecnologias</h3>
+          <div class="skills-grid">
+            <div class="skill-card"><i class="fab fa-html5"></i><span>HTML5</span></div>
+            <div class="skill-card"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+            <div class="skill-card"><i class="fab fa-js"></i><span>JavaScript</span></div>
+            <div class="skill-card"><i class="fas fa-code"></i><span>C</span></div>
+            <div class="skill-card"><i class="fas fa-tools"></i><span>Manutenção</span></div>
+            <div class="skill-card"><i class="fas fa-microchip"></i><span>Hardware</span></div>
+            <div class="skill-card"><i class="fas fa-chart-line"></i><span>Office 365</span></div>
+            <div class="skill-card"><i class="fas fa-file-alt"></i><span>ABNT</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projetos -->
+    <section id="projetos" class="fade-up">
+      <div class="container">
+        <h2 style="text-align:center" class="fade-up"><span data-key="projects_title">Meus</span> <span class="text-accent text-glow">Projetos</span></h2>
+        <div class="projetos-grid" id="projetosGrid"></div>
+      </div>
+    </section>
+
+    <!-- Contatos -->
+    <section id="contatos" class="fade-up bg-secondary">
+      <div class="container" style="max-width:800px">
+        <h2 style="text-align:center" class="fade-up"><span data-key="contact_title">Vamos</span> <span class="text-accent text-glow">Conversar?</span></h2>
+        <div class="contact-buttons fade-up">
+          <a href="https://wa.me/5531972671565?text=Olá%20Daniel%2C%20vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20oportunidades%20na%20área%20de%20tecnologia." target="_blank" rel="noopener noreferrer" class="contact-btn whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href="mailto:danielmax2513@outlook.com?subject=Portfólio%20-%20Oportunidade%20Profissional&body=Olá%20Daniel%2C%20vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20oportunidades%20na%20área%20de%20tecnologia." class="contact-btn email"><i class="fas fa-envelope"></i> E-mail</a>
+        </div>
+        <div class="form-contato fade-up">
+          <h3 style="text-align:center; margin-bottom:1rem" data-key="form_title">Envie uma mensagem direta</h3>
+          <form id="contactForm" action="https://formspree.io/f/xgvazkqr" method="POST">
+            <div class="form-group"><input type="text" name="name" data-key-placeholder="form_name" placeholder="Seu nome" required></div>
+            <div class="form-group"><input type="email" name="email" data-key-placeholder="form_email" placeholder="Seu e-mail" required></div>
+            <div class="form-group"><textarea name="message" rows="4" maxlength="500" data-key-placeholder="form_message" placeholder="Sua mensagem..." required></textarea>
+              <div style="text-align:right; font-size:0.75rem; margin-top:0.25rem; color:hsl(var(--muted-foreground))"><span id="charCount">0</span>/500</div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%" data-key="form_send">Enviar mensagem</button>
+            <div id="formStatus" class="form-status"></div>
+          </form>
+        </div>
+        <div class="fade-up" style="display:flex; justify-content:center; gap:2rem; margin-top:2rem">
+          <a href="https://www.linkedin.com/in/daniel-souza-826744404" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--accent))"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <a href="https://github.com/Danielmsouza-dev" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--accent))"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2026 Daniel Souza. Todos os direitos reservados.</p>
+    <button id="backToTop" style="background:none; border:none; margin-top:1rem; cursor:pointer; color:hsl(var(--accent))"><i class="fas fa-arrow-up"></i> <span data-key="back_top">Voltar ao topo</span></button>
+  </footer>
+
+  <!-- Modal -->
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModalBtn">&times;</span>
+      <div class="modal-image"><img id="modalImg" src="" alt="projeto" loading="lazy"></div>
+      <div class="modal-text">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+        <div class="modal-buttons">
+          <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fab fa-github"></i> <span data-key="view_github">Ver no GitHub</span></a>
+          <a id="modalDemoLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fab fa-linkedin"></i> <span data-key="view_demo">Ver demonstração</span></a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-  // PROJETOS COM IMAGENS HOSPEDADAS
-  const projectsData = {
-    pt: [
-      { id:1, image:'https://i.ibb.co/j9bbMz6Y/imagem-projeto1.png', title:'Nubank Website', tech:'HTML, CSS, JavaScript', desc:'Aplicação web inspirada na experiência visual do Nubank, desenvolvida com foco em interface moderna, animações interativas e responsividade. O projeto simula funcionalidades presentes em plataformas bancárias digitais, incluindo autenticação visual, alternância de temas, múltiplos idiomas e componentes dinâmicos para proporcionar uma experiência mais imersiva e profissional.', github:'https://github.com/Danielmsouza-dev/nubank-website', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_desenvolvimentoweb-frontend-javascript-ugcPost-7454232686887399424-2Brw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
-      { id:2, image:'https://i.ibb.co/HDGwkW5v/Imagem-projeto2.png', title:'Spotfy Clone', tech:'HTML, CSS, JavaScript', desc:'Aplicação web inspirada na experiência visual do Spotify, desenvolvida com foco em design moderno, interatividade e responsividade. O projeto recria elementos presentes em plataformas de streaming musical, incluindo animações dinâmicas, seções interativas, componentes visuais avançados e uma interface totalmente adaptada para diferentes dispositivos.', github:'https://github.com/restoffkaua08-afk/Sportfy_Clone', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_frontend-html-css-ugcPost-7454234378664329216-ajbN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
-    ],
-    en: [
-      { id:1, image:'https://i.ibb.co/j9bbMz6Y/imagem-projeto1.png', title:'Nubank Website', tech:'HTML, CSS, JavaScript', desc:'Web application inspired by the Nubank digital banking experience, developed with a focus on modern UI design, interactive animations, and responsiveness. The project simulates features commonly found in digital banking platforms, including visual authentication flows, theme switching, multilingual support, and dynamic components to create a more immersive and professional user experience.', github:'https://github.com/Danielmsouza-dev/nubank-website', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_desenvolvimentoweb-frontend-javascript-ugcPost-7454232686887399424-2Brw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
-      { id:2, image:'https://i.ibb.co/HDGwkW5v/Imagem-projeto2.png', title:'Spotify Clone', tech:'HTML, CSS, JavaScript', desc:'Web application inspired by the Spotify streaming experience, developed with a focus on modern design, interactivity, and responsiveness. The project recreates elements commonly found in music streaming platforms, including dynamic animations, interactive sections, advanced visual components, and a fully responsive interface optimized for different devices.', github:'https://github.com/restoffkaua08-afk/Sportfy_Clone', demoLink:'https://www.linkedin.com/posts/daniel-ms-souza_frontend-html-css-ugcPost-7454234378664329216-ajbN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4' },
-    ]
-  };
+  <script>
+    // PROJETOS COM IMAGENS HOSPEDADAS (mesmos dados)
+    const projectsData = {
+      pt: [
+        {
+          id: 1,
+          image: 'https://i.ibb.co/j9bbMz6Y/imagem-projeto1.png',
+          title: 'Nubank Website',
+          tech: 'HTML, CSS, JavaScript',
+          desc: 'Aplicação web inspirada na experiência visual do Nubank, desenvolvida com foco em interface moderna, animações interativas e responsividade. O projeto simula funcionalidades presentes em plataformas bancárias digitais, incluindo autenticação visual, alternância de temas, múltiplos idiomas e componentes dinâmicos para proporcionar uma experiência mais imersiva e profissional.',
+          github: 'https://github.com/Danielmsouza-dev/nubank-website',
+          demoLink: 'https://www.linkedin.com/posts/daniel-ms-souza_desenvolvimentoweb-frontend-javascript-ugcPost-7454232686887399424-2Brw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4'
+        },
+        {
+          id: 2,
+          image: 'https://i.ibb.co/HDGwkW5v/Imagem-projeto2.png',
+          title: 'Spotfy Clone',
+          tech: 'HTML, CSS, JavaScript',
+          desc: 'Aplicação web inspirada na experiência visual do Spotify, desenvolvida com foco em design moderno, interatividade e responsividade. O projeto recria elementos presentes em plataformas de streaming musical, incluindo animações dinâmicas, seções interativas, componentes visuais avançados e uma interface totalmente adaptada para diferentes dispositivos.',
+          github: 'https://github.com/restoffkaua08-afk/Sportfy_Clone',
+          demoLink: 'https://www.linkedin.com/posts/daniel-ms-souza_frontend-html-css-ugcPost-7454234378664329216-ajbN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4'
+        }
+      ],
+      en: [
+        {
+          id: 1,
+          image: 'https://i.ibb.co/j9bbMz6Y/imagem-projeto1.png',
+          title: 'Nubank Website',
+          tech: 'HTML, CSS, JavaScript',
+          desc: 'Web application inspired by the Nubank digital banking experience, developed with a focus on modern UI design, interactive animations, and responsiveness. The project simulates features commonly found in digital banking platforms, including visual authentication flows, theme switching, multilingual support, and dynamic components to create a more immersive and professional user experience.',
+          github: 'https://github.com/Danielmsouza-dev/nubank-website',
+          demoLink: 'https://www.linkedin.com/posts/daniel-ms-souza_desenvolvimentoweb-frontend-javascript-ugcPost-7454232686887399424-2Brw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4'
+        },
+        {
+          id: 2,
+          image: 'https://i.ibb.co/HDGwkW5v/Imagem-projeto2.png',
+          title: 'Spotify Clone',
+          tech: 'HTML, CSS, JavaScript',
+          desc: 'Web application inspired by the Spotify streaming experience, developed with a focus on modern design, interactivity, and responsiveness. The project recreates elements commonly found in music streaming platforms, including dynamic animations, interactive sections, advanced visual components, and a fully responsive interface optimized for different devices.',
+          github: 'https://github.com/restoffkaua08-afk/Sportfy_Clone',
+          demoLink: 'https://www.linkedin.com/posts/daniel-ms-souza_frontend-html-css-ugcPost-7454234378664329216-ajbN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdWN54BJIY1hYeM-VOfFad4kdYZiX1P9A4'
+        }
+      ]
+    };
 
-  let currentLang = 'pt';
-  let currentProjects = projectsData.pt;
+    let currentLang = 'pt';
+    let currentProjects = projectsData.pt;
 
-  function renderProjects() {
-    const grid = document.getElementById('projetosGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    currentProjects.forEach(proj => {
-      const card = document.createElement('div');
-      card.className = 'projeto-card';
-      card.innerHTML = `<div class="projeto-img"><img src="${proj.image}" alt="${proj.title}" loading="lazy"></div><div class="projeto-info"><h3>${proj.title}</h3><p style="color:hsl(var(--muted-foreground));">${proj.tech}</p><p>${proj.desc.substring(0,80)}...</p></div>`;
-      card.addEventListener('click', () => openModal(proj));
-      grid.appendChild(card);
-    });
-  }
-
-  function openModal(proj) {
-    document.getElementById('modalImg').src = proj.image;
-    document.getElementById('modalTitle').innerText = proj.title;
-    document.getElementById('modalDesc').innerHTML = `<strong>${proj.tech}</strong><br>${proj.desc}`;
-    document.getElementById('modalLink').href = proj.github;
-    document.getElementById('modalDemoLink').href = proj.demoLink;
-    document.getElementById('projectModal').style.display = 'flex';
-  }
-  document.getElementById('closeModalBtn').onclick = () => document.getElementById('projectModal').style.display = 'none';
-  window.onclick = (e) => { if(e.target === document.getElementById('projectModal')) document.getElementById('projectModal').style.display = 'none'; };
-
-  const translations = {
-    pt: {
-      nav_home: "Início", nav_about: "Sobre", nav_career: "Carreira", nav_resume: "Currículo", nav_projects: "Projetos", nav_contact: "Contatos",
-      hero_greeting: "Olá, eu sou", hero_title: "Desenvolvedor Web | Técnico em TI | Estudante SENAI", download_cv: "Download CV",
-      about_title: "Sobre", about_p1: "Sou Daniel Max Souza, tenho 16 anos e estou cursando o 2º ano do ensino médio e o Técnico em Informática para Internet no SENAI (previsão de conclusão: dezembro/2027).", about_p2: "Sou movido por tecnologia e por resolver problemas reais. Tenho projetos no GitHub onde aplico meus conhecimentos em HTML, CSS, JavaScript e C. Acredito que a prática é o que realmente ensina.", about_p3: "Estou em busca da minha primeira oportunidade profissional na área de TI, como jovem aprendiz ou estagiário, trazendo vontade de aprender, dedicação e foco em resultados.",
-      career_title: "Experiência", career_p1: "Antes de me mudar para Joinville - SC, trabalhei como Jovem Aprendiz Administrativo na Vilma Alimentos (Contagem - MG) por 1 ano e 2 meses. Lá, desenvolvi habilidades em rotinas administrativas, organização de documentos, atendimento interno e uso de ferramentas digitais como Office 365.", career_p2: "Além da experiência administrativa, tenho projetos no GitHub que mostram minha evolução prática em desenvolvimento web e lógica de programação. Cada projeto é um desafio que eu busquei e resolvi.", career_p3: "Atualmente, curso Técnico em Informática para Internet no SENAI e continuo estudando front-end e back-end para me tornar um profissional completo. Busco minha primeira oportunidade na área de TI para unir minha experiência corporativa com minha paixão por tecnologia.",
-      resume_title: "Currículo", academic_title: "Formação Acadêmica", courses_title: "Cursos Complementares",
-      academic_1_title: "Técnico em Informática para Internet (SENAI)", academic_1_date: "Março/2026 - Dezembro/2027", academic_1_desc: "Lógica de programação, desenvolvimento web, programação (HTML, CSS, JavaScript, C), banco de dados (básico), manutenção e configuração de computadores.",
-      academic_2_title: "Ensino Médio (2º ano)", academic_2_date: "Conclusão: Dezembro/2027", academic_2_desc: "Instituição: E.E.M Bailarina Liselott Trinks",
-      course_1_title: "Curso de Front End (EBAC)", course_1_date: "Em andamento", course_1_desc: "Aprendizado de tecnologias front-end para desenvolvimento web.",
-      course_2_title: "Hardware: Montagem e Manutenção (SENAC)", course_2_date: "2024", course_2_desc: "Componentes de hardware, montagem, manutenção preventiva e corretiva.",
-      course_3_title: "Web Designer (Site Ninja PRO)", course_3_date: "2024", course_3_desc: "Design de websites, ferramentas e boas práticas.",
-      course_4_title: "Excel Básico (Fundação Bradesco)", course_4_date: "2023", course_4_desc: "Conceitos básicos de planilhas eletrônicas, fórmulas e funções.",
-      languages_title: "Idiomas", lang_pt: "Português", lang_pt_desc: "Língua materna", lang_en: "Inglês", lang_en_desc: "Nível A2 (Básico)",
-      soft_title: "Soft Skills", soft_1: "Proatividade", soft_2: "Trabalho em equipe", soft_3: "Comunicação", soft_4: "Organização", soft_5: "Resolução de problemas", soft_6: "Facilidade de aprendizado", soft_7: "Interesse em tecnologia",
-      hard_title: "Hard Skills & Tecnologias", projects_title: "Meus", contact_title: "Vamos", back_top: "Voltar ao topo", view_github: "Ver no GitHub", view_demo: "Ver demonstração",
-      form_title: "Envie uma mensagem direta", form_name: "Seu nome", form_email: "Seu e-mail", form_message: "Sua mensagem...", form_send: "Enviar mensagem"
-    },
-    en: {
-      nav_home: "Home", nav_about: "About", nav_career: "Career", nav_resume: "Resume", nav_projects: "Projects", nav_contact: "Contact",
-      hero_greeting: "Hello, I'm", hero_title: "Web Developer | IT technician | SENAI Student", download_cv: "Download CV",
-      about_title: "About", about_p1: "I'm Daniel Max Souza, 16 years old, currently in my 2nd year of high school and studying IT for Internet at SENAI (expected completion: December 2027).", about_p2: "I'm driven by technology and solving real problems. I have projects on GitHub where I apply my knowledge in HTML, CSS, JavaScript, and C. I believe practice is what truly teaches.", about_p3: "I'm looking for my first opportunity in IT as a trainee or apprentice, bringing eagerness to learn, dedication, and focus on results.",
-      career_title: "Experience", career_p1: "Before moving to Joinville - SC, I worked as an Administrative Apprentice at Vilma Alimentos (Contagem - MG) for 1 year and 2 months. There, I developed skills in administrative routines, document organization, internal support, and digital tools like Office 365.", career_p2: "Beyond my administrative experience, I have projects on GitHub showcasing my practical growth in web development and programming logic. Each project is a challenge I pursued and solved.", career_p3: "Currently, I'm studying IT for Internet at SENAI and continuing to learn front-end and back-end to become a complete professional. I'm seeking my first IT opportunity to combine my corporate experience with my passion for technology.",
-      resume_title: "Resume", academic_title: "Academic Background", courses_title: "Complementary Courses",
-      academic_1_title: "IT for Internet Technician (SENAI)", academic_1_date: "Mar/2026 - Dec/2027", academic_1_desc: "Programming logic, web development, programming (HTML, CSS, JavaScript, C), databases (basic), computer maintenance and configuration.",
-      academic_2_title: "High School (2nd year)", academic_2_date: "Completion: Dec/2027", academic_2_desc: "School: E.E.M Bailarina Liselott Trinks",
-      course_1_title: "Front End Course (EBAC)", course_1_date: "In progress", course_1_desc: "Learning front-end technologies for web development.",
-      course_2_title: "Hardware: Assembly and Maintenance (SENAC)", course_2_date: "2024", course_2_desc: "Hardware components, assembly, preventive and corrective maintenance.",
-      course_3_title: "Web Designer (Site Ninja PRO)", course_3_date: "2024", course_3_desc: "Website design, tools and best practices.",
-      course_4_title: "Basic Excel (Fundação Bradesco)", course_4_date: "2023", course_4_desc: "Basic spreadsheet concepts, formulas and functions.",
-      languages_title: "Languages", lang_pt: "Portuguese", lang_pt_desc: "Native", lang_en: "English", lang_en_desc: "A2 Level (Basic)",
-      soft_title: "Soft Skills", soft_1: "Proactivity", soft_2: "Teamwork", soft_3: "Communication", soft_4: "Organization", soft_5: "Problem Solving", soft_6: "Ease of Learning", soft_7: "Interest in Technology",
-      hard_title: "Hard Skills & Technologies", projects_title: "My", contact_title: "Let's", back_top: "Back to top", view_github: "View on GitHub", view_demo: "View demo",
-      form_title: "Send a direct message", form_name: "Your name", form_email: "Your email", form_message: "Your message...", form_send: "Send message"
+    function renderProjects() {
+      const grid = document.getElementById('projetosGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      currentProjects.forEach(proj => {
+        const card = document.createElement('div');
+        card.className = 'projeto-card';
+        card.innerHTML = `<div class="projeto-img"><img src="${proj.image}" alt="${proj.title}" loading="lazy"></div><div class="projeto-info"><h3>${proj.title}</h3><p style="color:hsl(var(--muted-foreground));">${proj.tech}</p><p>${proj.desc.substring(0, 80)}...</p></div>`;
+        card.addEventListener('click', () => openModal(proj));
+        grid.appendChild(card);
+      });
     }
-  };
 
-  function applyLanguage(lang) {
-    document.querySelectorAll('[data-key]').forEach(el => {
-      const key = el.getAttribute('data-key');
-      if(translations[lang][key]) el.innerText = translations[lang][key];
-    });
-    document.querySelectorAll('[data-key-placeholder]').forEach(el => {
-      const key = el.getAttribute('data-key-placeholder');
-      if(translations[lang][key]) el.placeholder = translations[lang][key];
-    });
-    currentProjects = projectsData[lang];
-    renderProjects();
-    document.getElementById('langText').innerText = lang.toUpperCase();
-    localStorage.setItem('portfolio-lang', lang);
-  }
+    function openModal(proj) {
+      document.getElementById('modalImg').src = proj.image;
+      document.getElementById('modalTitle').innerText = proj.title;
+      document.getElementById('modalDesc').innerHTML = `<strong>${proj.tech}</strong><br>${proj.desc}`;
+      document.getElementById('modalLink').href = proj.github;
+      document.getElementById('modalDemoLink').href = proj.demoLink;
+      document.getElementById('projectModal').style.display = 'flex';
+    }
+    document.getElementById('closeModalBtn').onclick = () => document.getElementById('projectModal').style.display = 'none';
+    window.onclick = (e) => {
+      if (e.target === document.getElementById('projectModal')) document.getElementById('projectModal').style.display = 'none';
+    };
 
-  const savedLang = localStorage.getItem('portfolio-lang') || 'pt';
-  currentLang = savedLang;
-  applyLanguage(currentLang);
-  document.getElementById('langToggle').addEventListener('click', () => {
-    currentLang = currentLang === 'pt' ? 'en' : 'pt';
+    const translations = {
+      pt: {
+        nav_home: "Início", nav_about: "Sobre", nav_career: "Carreira", nav_resume: "Currículo", nav_projects: "Projetos", nav_contact: "Contatos",
+        hero_greeting: "Olá, eu sou", hero_title: "Desenvolvedor Web | Técnico em TI | Estudante SENAI", download_cv: "Download CV",
+        about_title: "Sobre", about_p1: "Sou Daniel Max Souza, tenho 16 anos e estou cursando o 2º ano do ensino médio e o Técnico em Informática para Internet no SENAI (previsão de conclusão: dezembro/2027).", about_p2: "Sou movido por tecnologia e por resolver problemas reais. Tenho projetos no GitHub onde aplico meus conhecimentos em HTML, CSS, JavaScript e C. Acredito que a prática é o que realmente ensina.", about_p3: "Estou em busca da minha primeira oportunidade profissional na área de TI, como jovem aprendiz ou estagiário, trazendo vontade de aprender, dedicação e foco em resultados.",
+        career_title: "Experiência", career_p1: "Antes de me mudar para Joinville - SC, trabalhei como Jovem Aprendiz Administrativo na Vilma Alimentos (Contagem - MG) por 1 ano e 2 meses. Lá, desenvolvi habilidades em rotinas administrativas, organização de documentos, atendimento interno e uso de ferramentas digitais como Office 365.", career_p2: "Além da experiência administrativa, tenho projetos no GitHub que mostram minha evolução prática em desenvolvimento web e lógica de programação. Cada projeto é um desafio que eu busquei e resolvi.", career_p3: "Atualmente, curso Técnico em Informática para Internet no SENAI e continuo estudando front-end e back-end para me tornar um profissional completo. Busco minha primeira oportunidade na área de TI para unir minha experiência corporativa com minha paixão por tecnologia.",
+        resume_title: "Currículo", academic_title: "Formação Acadêmica", courses_title: "Cursos Complementares",
+        academic_1_title: "Técnico em Informática para Internet (SENAI)", academic_1_date: "Março/2026 - Dezembro/2027", academic_1_desc: "Lógica de programação, desenvolvimento web, programação (HTML, CSS, JavaScript, C), banco de dados (básico), manutenção e configuração de computadores.",
+        academic_2_title: "Ensino Médio (2º ano)", academic_2_date: "Conclusão: Dezembro/2027", academic_2_desc: "Instituição: E.E.M Bailarina Liselott Trinks",
+        course_1_title: "Curso de Front End (EBAC)", course_1_date: "Em andamento", course_1_desc: "Aprendizado de tecnologias front-end para desenvolvimento web.",
+        course_2_title: "Hardware: Montagem e Manutenção (SENAC)", course_2_date: "2024", course_2_desc: "Componentes de hardware, montagem, manutenção preventiva e corretiva.",
+        course_3_title: "Web Designer (Site Ninja PRO)", course_3_date: "2024", course_3_desc: "Design de websites, ferramentas e boas práticas.",
+        course_4_title: "Excel Básico (Fundação Bradesco)", course_4_date: "2023", course_4_desc: "Conceitos básicos de planilhas eletrônicas, fórmulas e funções.",
+        languages_title: "Idiomas", lang_pt: "Português", lang_pt_desc: "Língua materna", lang_en: "Inglês", lang_en_desc: "Nível A2 (Básico)",
+        soft_title: "Soft Skills", soft_1: "Proatividade", soft_2: "Trabalho em equipe", soft_3: "Comunicação", soft_4: "Organização", soft_5: "Resolução de problemas", soft_6: "Facilidade de aprendizado", soft_7: "Interesse em tecnologia",
+        hard_title: "Hard Skills & Tecnologias", projects_title: "Meus", contact_title: "Vamos", back_top: "Voltar ao topo", view_github: "Ver no GitHub", view_demo: "Ver demonstração",
+        form_title: "Envie uma mensagem direta", form_name: "Seu nome", form_email: "Seu e-mail", form_message: "Sua mensagem...", form_send: "Enviar mensagem"
+      },
+      en: {
+        nav_home: "Home", nav_about: "About", nav_career: "Career", nav_resume: "Resume", nav_projects: "Projects", nav_contact: "Contact",
+        hero_greeting: "Hello, I'm", hero_title: "Web Developer | IT technician | SENAI Student", download_cv: "Download CV",
+        about_title: "About", about_p1: "I'm Daniel Max Souza, 16 years old, currently in my 2nd year of high school and studying IT for Internet at SENAI (expected completion: December 2027).", about_p2: "I'm driven by technology and solving real problems. I have projects on GitHub where I apply my knowledge in HTML, CSS, JavaScript, and C. I believe practice is what truly teaches.", about_p3: "I'm looking for my first opportunity in IT as a trainee or apprentice, bringing eagerness to learn, dedication, and focus on results.",
+        career_title: "Experience", career_p1: "Before moving to Joinville - SC, I worked as an Administrative Apprentice at Vilma Alimentos (Contagem - MG) for 1 year and 2 months. There, I developed skills in administrative routines, document organization, internal support, and digital tools like Office 365.", career_p2: "Beyond my administrative experience, I have projects on GitHub showcasing my practical growth in web development and programming logic. Each project is a challenge I pursued and solved.", career_p3: "Currently, I'm studying IT for Internet at SENAI and continuing to learn front-end and back-end to become a complete professional. I'm seeking my first IT opportunity to combine my corporate experience with my passion for technology.",
+        resume_title: "Resume", academic_title: "Academic Background", courses_title: "Complementary Courses",
+        academic_1_title: "IT for Internet Technician (SENAI)", academic_1_date: "Mar/2026 - Dec/2027", academic_1_desc: "Programming logic, web development, programming (HTML, CSS, JavaScript, C), databases (basic), computer maintenance and configuration.",
+        academic_2_title: "High School (2nd year)", academic_2_date: "Completion: Dec/2027", academic_2_desc: "School: E.E.M Bailarina Liselott Trinks",
+        course_1_title: "Front End Course (EBAC)", course_1_date: "In progress", course_1_desc: "Learning front-end technologies for web development.",
+        course_2_title: "Hardware: Assembly and Maintenance (SENAC)", course_2_date: "2024", course_2_desc: "Hardware components, assembly, preventive and corrective maintenance.",
+        course_3_title: "Web Designer (Site Ninja PRO)", course_3_date: "2024", course_3_desc: "Website design, tools and best practices.",
+        course_4_title: "Basic Excel (Fundação Bradesco)", course_4_date: "2023", course_4_desc: "Basic spreadsheet concepts, formulas and functions.",
+        languages_title: "Languages", lang_pt: "Portuguese", lang_pt_desc: "Native", lang_en: "English", lang_en_desc: "A2 Level (Basic)",
+        soft_title: "Soft Skills", soft_1: "Proactivity", soft_2: "Teamwork", soft_3: "Communication", soft_4: "Organization", soft_5: "Problem Solving", soft_6: "Ease of Learning", soft_7: "Interest in Technology",
+        hard_title: "Hard Skills & Technologies", projects_title: "My", contact_title: "Let's", back_top: "Back to top", view_github: "View on GitHub", view_demo: "View demo",
+        form_title: "Send a direct message", form_name: "Your name", form_email: "Your email", form_message: "Your message...", form_send: "Send message"
+      }
+    };
+
+    function applyLanguage(lang) {
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[lang][key]) el.innerText = translations[lang][key];
+      });
+      document.querySelectorAll('[data-key-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-key-placeholder');
+        if (translations[lang][key]) el.placeholder = translations[lang][key];
+      });
+      currentProjects = projectsData[lang];
+      renderProjects();
+      document.getElementById('langText').innerText = lang.toUpperCase();
+      localStorage.setItem('portfolio-lang', lang);
+    }
+
+    const savedLang = localStorage.getItem('portfolio-lang') || 'pt';
+    currentLang = savedLang;
     applyLanguage(currentLang);
-  });
+    document.getElementById('langToggle').addEventListener('click', () => {
+      currentLang = currentLang === 'pt' ? 'en' : 'pt';
+      applyLanguage(currentLang);
+    });
 
-  const textarea = document.querySelector('#contactForm textarea');
-  const charCountSpan = document.getElementById('charCount');
-  if (textarea && charCountSpan) {
-    textarea.addEventListener('input', function() { charCountSpan.innerText = this.value.length; });
-    charCountSpan.innerText = textarea.value.length;
-  }
+    const textarea = document.querySelector('#contactForm textarea');
+    const charCountSpan = document.getElementById('charCount');
+    if (textarea && charCountSpan) {
+      textarea.addEventListener('input', function() {
+        charCountSpan.innerText = this.value.length;
+      });
+      charCountSpan.innerText = textarea.value.length;
+    }
 
-  ['academic','courses'].forEach(group => {
-    document.querySelectorAll(`.accordion-item[data-group="${group}"]`).forEach(item => {
-      item.querySelector('.accordion-header').addEventListener('click', () => {
-        const open = item.classList.contains('open');
-        document.querySelectorAll(`.accordion-item[data-group="${group}"]`).forEach(i => i.classList.remove('open'));
-        if(!open) item.classList.add('open');
+    ['academic', 'courses'].forEach(group => {
+      document.querySelectorAll(`.accordion-item[data-group="${group}"]`).forEach(item => {
+        item.querySelector('.accordion-header').addEventListener('click', () => {
+          const open = item.classList.contains('open');
+          document.querySelectorAll(`.accordion-item[data-group="${group}"]`).forEach(i => i.classList.remove('open'));
+          if (!open) item.classList.add('open');
+        });
       });
     });
-  });
 
-  const themeToggle = document.getElementById('themeToggle');
-  const setTheme = (theme) => {
-    if(theme === 'dark') document.body.classList.add('dark'); else document.body.classList.remove('dark');
-    localStorage.setItem('portfolio-theme', theme);
-    const icon = themeToggle.querySelector('i');
-    if(theme === 'dark') { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
-    else { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); }
-  };
-  setTheme(localStorage.getItem('portfolio-theme') || 'dark');
-  themeToggle.addEventListener('click', () => setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
-
-  const sections = ['hero','sobre','carreira','curriculo','projetos','contatos'];
-  const navLinks = document.querySelectorAll('.nav-links a');
-  function updateActive() { const scrollPos = window.scrollY + 120; let current = 'hero'; for(let s of sections) { const el = document.getElementById(s); if(el && el.offsetTop <= scrollPos) current = s; } navLinks.forEach(link => { if(link.getAttribute('data-section') === current) link.classList.add('active'); else link.classList.remove('active'); }); }
-  window.addEventListener('scroll', updateActive); updateActive();
-  navLinks.forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); document.getElementById(link.getAttribute('data-section')).scrollIntoView({ behavior:'smooth' }); document.getElementById('navLinks')?.classList.remove('active'); }); });
-  document.getElementById('logoHome').addEventListener('click', () => document.getElementById('hero').scrollIntoView({ behavior:'smooth' }));
-  document.getElementById('backToTop').addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
-  document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('active'));
-  window.addEventListener('scroll', () => { if(window.scrollY > 50) document.getElementById('header').classList.add('scrolled'); else document.getElementById('header').classList.remove('scrolled'); });
-  
-  const fadeElements = document.querySelectorAll('.fade-up');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+    const themeToggle = document.getElementById('themeToggle');
+    const setTheme = (theme) => {
+      if (theme === 'dark') document.body.classList.add('dark');
+      else document.body.classList.remove('dark');
+      localStorage.setItem('portfolio-theme', theme);
+      const icon = themeToggle.querySelector('i');
+      if (theme === 'dark') {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
       }
+    };
+    setTheme(localStorage.getItem('portfolio-theme') || 'dark');
+    themeToggle.addEventListener('click', () => setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
+
+    const sections = ['hero', 'sobre', 'carreira', 'curriculo', 'projetos', 'contatos'];
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    function updateActive() {
+      const scrollPos = window.scrollY + 120;
+      let current = 'hero';
+      for (let s of sections) {
+        const el = document.getElementById(s);
+        if (el && el.offsetTop <= scrollPos) current = s;
+      }
+      navLinks.forEach(link => {
+        if (link.getAttribute('data-section') === current) link.classList.add('active');
+        else link.classList.remove('active');
+      });
+    }
+    window.addEventListener('scroll', updateActive);
+    updateActive();
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById(link.getAttribute('data-section')).scrollIntoView({
+          behavior: 'smooth'
+        });
+        // Fecha o menu mobile ao clicar em um link
+        document.getElementById('navLinks')?.classList.remove('active');
+      });
     });
-  }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
-  fadeElements.forEach(el => observer.observe(el));
-  
-  const bgDiv = document.getElementById('floatingBg'); function createRings() { bgDiv.innerHTML = ''; const grads = ['linear-gradient(135deg,#9CA3AF,#6B7280)','linear-gradient(135deg,#D1D5DB,#9CA3AF)','linear-gradient(135deg,#9CA3AF,#E5E7EB)']; for(let i=0;i<3;i++) { const ring = document.createElement('div'); ring.className = 'ring'; const size = 300 + Math.random() * 200; ring.style.width = size+'px'; ring.style.height = size+'px'; ring.style.background = grads[i%3]; ring.style.left = Math.random() * 100 + '%'; ring.style.top = Math.random() * 100 + '%'; ring.style.animationDelay = i*2 + 's'; ring.style.animationDuration = 15 + i*2 + 's'; bgDiv.appendChild(ring); } } createRings();
-  const contactForm = document.getElementById('contactForm'); const formStatus = document.getElementById('formStatus'); if(contactForm) { contactForm.addEventListener('submit', async (e) => { e.preventDefault(); formStatus.innerHTML = '<span style="color:cyan;">Enviando...</span>'; const fd = new FormData(contactForm); try { const resp = await fetch(contactForm.action, { method:'POST', body:fd, headers:{ 'Accept':'application/json' } }); if(resp.ok) { formStatus.innerHTML = '<span style="color:lightgreen;">✅ Mensagem enviada! Entrarei em contato em breve.</span>'; contactForm.reset(); if (textarea && charCountSpan) charCountSpan.innerText = '0'; } else { formStatus.innerHTML = '<span style="color:salmon;">❌ Erro. Tente pelo WhatsApp ou e-mail.</span>'; } } catch { formStatus.innerHTML = '<span style="color:salmon;">❌ Falha na conexão. Use os botões de contato.</span>'; } }); }
-</script>
+    document.getElementById('logoHome').addEventListener('click', () => document.getElementById('hero').scrollIntoView({
+      behavior: 'smooth'
+    }));
+    document.getElementById('backToTop').addEventListener('click', () => window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    }));
+    document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('active'));
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) document.getElementById('header').classList.add('scrolled');
+      else document.getElementById('header').classList.remove('scrolled');
+    });
+
+    // ANIMAÇÃO FADE-UP
+    const fadeElements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: "0px 0px -50px 0px"
+    });
+    fadeElements.forEach(el => observer.observe(el));
+
+    const bgDiv = document.getElementById('floatingBg');
+    function createRings() {
+      bgDiv.innerHTML = '';
+      const grads = ['linear-gradient(135deg,#9CA3AF,#6B7280)', 'linear-gradient(135deg,#D1D5DB,#9CA3AF)', 'linear-gradient(135deg,#9CA3AF,#E5E7EB)'];
+      for (let i = 0; i < 3; i++) {
+        const ring = document.createElement('div');
+        ring.className = 'ring';
+        const size = 300 + Math.random() * 200;
+        ring.style.width = size + 'px';
+        ring.style.height = size + 'px';
+        ring.style.background = grads[i % 3];
+        ring.style.left = Math.random() * 100 + '%';
+        ring.style.top = Math.random() * 100 + '%';
+        ring.style.animationDelay = i * 2 + 's';
+        ring.style.animationDuration = 15 + i * 2 + 's';
+        bgDiv.appendChild(ring);
+      }
+    }
+    createRings();
+
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        formStatus.innerHTML = '<span style="color:cyan;">Enviando...</span>';
+        const fd = new FormData(contactForm);
+        try {
+          const resp = await fetch(contactForm.action, {
+            method: 'POST',
+            body: fd,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          if (resp.ok) {
+            formStatus.innerHTML = '<span style="color:lightgreen;">✅ Mensagem enviada! Entrarei em contato em breve.</span>';
+            contactForm.reset();
+            if (textarea && charCountSpan) charCountSpan.innerText = '0';
+          } else {
+            formStatus.innerHTML = '<span style="color:salmon;">❌ Erro. Tente pelo WhatsApp ou e-mail.</span>';
+          }
+        } catch {
+          formStatus.innerHTML = '<span style="color:salmon;">❌ Falha na conexão. Use os botões de contato.</span>';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
